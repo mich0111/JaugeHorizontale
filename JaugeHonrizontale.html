@@ -10,8 +10,6 @@
 ------------------------Paramètres optionnels widget------------------
 size //  taille du cadran (déaut 250px)
 nom  // remplace le nom de la commande par celui de votre choix
-backlight	// Couleur de fond du widget mode light (défaut "gray" )
-backdark	// Couleur de fond du widget mode dark (défaut "white" )
 fond	// Couleur de fond du cadran (défaut #@@@ )
 aiguille	// Couleur aiguille (défaut rouge)
 Laiguille	// Longueur de aiguille (défaut 70)
@@ -54,8 +52,6 @@ Les expression de couleurs respectent le format HTML (red, lime, …, #F00, …,
 
     var nom#id# = ('#nom#' !='#'+'nom#') ? "#nom#":"#name#";                        // remplace le nom de la commande par celui de votre choix
     var size#id# = ('#size#' !='#'+'size#') ? "#size#":"250px";                     // taille du cadran
-    var backlight#id# = ('#backlight#' !='#'+'backlight#') ? "#backlight#":"gray";  // couleur fond exterieur au cadran
-    var backdark#id# = ('#backdark#' !='#'+'backdark#') ? "#backdark#":"white";     // couleur fond exterieur au cadran
     var fond#id# = ('#fond#' !='#'+'fond#') ? "#fond#":"#000";                      // couleur fond du cadran
     var aiguille#id# = ('#aiguille#' !='#'+'aiguille#') ? "#aiguille#":"#F00";      // couleur aiguille défaut rouge
     var Laiguille#id# = ('#Laiguille#' !='#'+'Laiguille#') ? "#Laiguille#":"70";    // Longueur de aiguille
@@ -101,17 +97,12 @@ Les expression de couleurs respectent le format HTML (red, lime, …, #F00, …,
     $('#JaugeHorizontal#id#').css('height',size#id#);
 
     var chart#id#;
-    var back#id# = "gray";
 
     chart#id# = new Highcharts.Chart({
 
       chart: {
         renderTo: 'JaugeHorizontal#id#',
         type: 'gauge',
-        plotBackgroundColor: back#id#,
-        plotBackgroundImage: null,
-        plotBorderWidth:0,
-        plotBorderColor: back#id#,
         plotShadow: false
       },
       title: {
@@ -232,15 +223,6 @@ Les expression de couleurs respectent le format HTML (red, lime, …, #F00, …,
       var valeur = parseFloat(_options.display_value);
       var valeur2 = _options.collectDate;
 
-      // Sélection du mode clair ou sombre
-      if ($('body')[0].hasAttribute('data-theme')) {
-        if ($('body').attr('data-theme').endsWith('Light')) {
-          back#id# = backlight#id#
-        } else {
-          back#id# = backdark#id#
-        }
-      }
-
       chart#id#.yAxis[0].setTitle({ text: nom#id# , style: {
         color: CTXT1#id#,
         fontWeight: 'bold',
@@ -251,10 +233,6 @@ Les expression de couleurs respectent le format HTML (red, lime, …, #F00, …,
         color: CTXT2#id#,
         fontSize: fsize#id#
       },y:-60});
-
-      chart#id#.plotBackground.attr({ 
-        fill: back#id#
-      });
 
       chart#id#.series[0].data[0].update(valeur);
     }
