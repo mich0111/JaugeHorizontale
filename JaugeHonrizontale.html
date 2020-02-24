@@ -17,7 +17,7 @@ Eaiguille	// Epaisseur de aiguille (défaut 4)
 Raiguille	// longueur arriere de aiguille (défaut 0)
 CTXT1	// Couleur du nom de la commande (défaut green)
 CTXT2	// Couleur de la valeur et de l’unité (défaut red)
-CTXT3	// Couleur des valeurs et (défaut white)
+CTXT3	// Couleur des valeurs (défaut white)
 fsize   // taille des caractères (défaut 12px)
 centre	// Couleur de l’axe de l’aiguille (défaut blanc)
 Tcentre	// Taille de l’axe de l’aiguille (défaut 5)
@@ -46,7 +46,10 @@ Les expression de couleurs respectent le format HTML (red, lime, …, #F00, …,
 
 <div class="JaugeHorizontal-#id# cmd tooltips cmd-widget #history# widget-JaugeHorizontal" title="" data-type="info" data-subtype="numeric" data-template="JaugeHorizontal" data-cmd_id="#id#" >
 
-  <div id="JaugeHorizontal#id#" style="width: 250px ; height: 250px ;"></div>
+  <div id="JaugeHorizontal#id#"></div>
+  <div class="cmdStats #hide_history#" style="position: relative; top:-45px ;">
+    <span title='Min' class='tooltips'>#minHistoryValue#</span>|<span title='Moyenne' class='tooltips'>#averageHistoryValue#</span>|<span title='Max' class='tooltips'>#maxHistoryValue#</span> <i class="#tendance#"></i>
+  </div>
 
   <script>
 
@@ -95,6 +98,8 @@ Les expression de couleurs respectent le format HTML (red, lime, …, #F00, …,
 
     $('#JaugeHorizontal#id#').css('width',size#id#);
     $('#JaugeHorizontal#id#').css('height',size#id#);
+    $('#JaugeHorizontal#id#').css('position','relative');
+    $('#JaugeHorizontal#id#').css('top','-15px');
 
     var chart#id#;
 
@@ -106,7 +111,7 @@ Les expression de couleurs respectent le format HTML (red, lime, …, #F00, …,
         plotShadow: false
       },
       title: {
-        text: 'test',
+        text: '',
         verticalAlign: 'bottom'
       },				
       credits: {
