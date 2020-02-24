@@ -234,6 +234,11 @@ Les expression de couleurs respectent le format HTML (red, lime, …, #F00, …,
         fontSize: fsize#id#
       },y:-60});
 
+      // limitation aiguille contribution JPTY
+      var plage = (VX#id# - V0#id#) *.02;
+      if ( valeur < V0#id# ) valeur = V0#id# - plage;
+      else if ( valeur > VX#id# ) valeur = VX#id# + plage; 
+
       chart#id#.series[0].data[0].update(valeur);
     }
 
