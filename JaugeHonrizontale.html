@@ -1,92 +1,106 @@
 <!--
-
 // file : /data/customTemplates/dashboard/cmd.info.numeric.JaugeHorizontal.html
-// Olive 2020-02-10 20:50
-// mich0111 2020-02-24 15:23
+// Olive 2020-02-27 08:30
 // OPTIONS : Voir le début de la section script
-
-// de préférence renseignez  les options de la commande min max et unite 
-
-------------------------Paramètres optionnels widget------------------
-size //  taille du cadran (déaut 250px)
-nom  // remplace le nom de la commande par celui de votre choix
-fond	// Couleur de fond du cadran (défaut #@@@ )
-aiguille	// Couleur aiguille (défaut rouge)
-Laiguille	// Longueur de aiguille (défaut 70)
-Eaiguille	// Epaisseur de aiguille (défaut 4)
-Raiguille	// longueur arriere de aiguille (défaut 0)
-CTXT1	// Couleur du nom de la commande (défaut green)
-CTXT2	// Couleur de la valeur et de l’unité (défaut red)
-CTXT3	// Couleur des valeurs (défaut white)
-fsize   // taille des caractères (défaut 12px)
-centre	// Couleur de l’axe de l’aiguille (défaut blanc)
-Tcentre	// Taille de l’axe de l’aiguille (défaut 5)
-step	// Espacement entre deux valeurs (défaut 2)
-start	// début cadran (défaut -150 degrés par rapport au nord)
-stop	// fin cadran   (défaut 150 degrés par rapport au nord)
-
-C1	// Couleur 1ère échelle des valeurs (défaut vert)
-C2	// Couleur 2ème échelle des valeurs (défaut jaune)
-C3	// Couleur 3ème échelle des valeurs (défaut rouge)
-C4	// Couleur 4ème échelle des valeurs (défaut rouge)
-C5	// Couleur 5ème echelle des valeurs (défaut rouge)
-
-V0	// Valeur de separation entre la partie DEBUT
-V1	// Valeur de separation entre la partie 1 et 2
-V2	// Valeur de separation entre la partie 2 et 3
-V3	// Valeur de separation entre la partie 3 et 4
-V4	// Valeur de separation entre la partie 4 et 5
-VX	// Valeur de separation entre la partie FIN
+// de préférence renseignezles options de la commande min max et unite 
+----- Paramètres optionnels widget
+size      // Taille du cadran (déaut 250px)
+nom       // Remplace le nom de la commande par celui de votre choix
+back      // Couleur de fond du widget (défaut #262626 )
+fond      // Couleur de fond du cadran (défaut #@@@ )
+aiguille  // Couleur aiguille (défaut rouge)
+Laiguille // Longueur de aiguille (défaut 70)
+Eaiguille // Epaisseur de aiguille (défaut 4)
+Raiguille // longueur arriere de aiguille (défaut 0)
+CTXT1     // Couleur du nom de la commande (défaut green)
+CTXT2     // Couleur de la valeur et de l’unité (défaut red)
+CTXT3     // Couleur des valeurs et (défaut white)
+RTXT      // Orientation des valeurs des textes (défaut 'auto' 0 horizontal à 360 ...)
+fsize     // taille des caractères (défaut 12px)
+centre    // Couleur de l’axe de l’aiguille (défaut blanc)
+Tcentre   // Taille de l’axe de l’aiguille (défaut 5)
+step      // Espacement entre deux valeurs (défaut 2)
+start     // Début cadran (défaut -150 degrés par rapport au nord)
+stop      // Fin cadran (défaut 150 degrés par rapport au nord)
+C1        // Couleur 1ère échelle des valeurs (défaut vert)
+C2        // Couleur 2ème échelle des valeurs (défaut jaune)
+C3        // Couleur 3ème échelle des valeurs (défaut rouge)
+C4        // Couleur 4ème échelle des valeurs (défaut rouge)
+C5        // Couleur 5ème echelle des valeurs (défaut rouge)
+Cmin      // couleur valeur mini historique (défaut Bleu) rgba(0,0,0,0) pour cacher
+Cmoy      // couleur valeur moyenne historique (défaut vert)
+Cmax      // couleur valeur maxi historique (défaut Rouge)
+V0        // Valeur de separation entre la partie DEBUT
+V1        // Valeur de separation entre la partie 1 et 2
+V2        // Valeur de separation entre la partie 2 et 3
+V3        // Valeur de separation entre la partie 3 et 4
+V4        // Valeur de separation entre la partie 4 et 5
+VX        // Valeur de separation entre la partie FIN
+dur       // Affichage de la durée depuis la dernière valeur
 -------------------------------------------------------------------------
-
-
 Les expression de couleurs respectent le format HTML (red, lime, …, #F00, …, #000000, …, rgb(255,0,0), …, rgba(255,0,0,0.5) pour des effets de transparence avec le dernier paramètre entre 0 et 1).
-
 -->
 
-<div class="JaugeHorizontal-#id# cmd tooltips cmd-widget #history# widget-JaugeHorizontal" title="" data-type="info" data-subtype="numeric" data-template="JaugeHorizontal" data-cmd_id="#id#" >
+<div class="JaugeHorizontal-#id# cmd tooltips cmd-widget #history# widget-JaugeHorizontal" title="" data-type="info" data-subtype="numeric"  data-template="JaugeHorizontal"  data-cmd_id="#id#" >
 
   <div id="JaugeHorizontal#id#"></div>
   <div class="cmdStats #hide_history#" style="position: relative; top:-45px ;">
     <span title='Min' class='tooltips'>#minHistoryValue#</span>|<span title='Moyenne' class='tooltips'>#averageHistoryValue#</span>|<span title='Max' class='tooltips'>#maxHistoryValue#</span> <i class="#tendance#"></i>
   </div>
 
+  <div class="value" style="position: relative; top:-45px ;">
+    <span class="timeCmd#uid# timeCmd label label-default value"></span>
+  </div>
+
   <script>
 
-    var nom#id# = ('#nom#' !='#'+'nom#') ? "#nom#":"#name#";                        // remplace le nom de la commande par celui de votre choix
-    var size#id# = ('#size#' !='#'+'size#') ? "#size#":"250px";                     // taille du cadran
-    var fond#id# = ('#fond#' !='#'+'fond#') ? "#fond#":"#000";                      // couleur fond du cadran
-    var aiguille#id# = ('#aiguille#' !='#'+'aiguille#') ? "#aiguille#":"#F00";      // couleur aiguille défaut rouge
-    var Laiguille#id# = ('#Laiguille#' !='#'+'Laiguille#') ? "#Laiguille#":"70";    // Longueur de aiguille
-    var Eaiguille#id# = ('#Eaiguille#' !='#'+'Eaiguille#') ? "#Eaiguille#":"4";     // Epaisseur de aiguille
-    var Raiguille#id# = ('#Raiguille#' !='#'+'Raiguille#') ? "#Raiguille#":"0";     // Longueur arriere de aiguille
+    var nom#id# = ('#nom#' !='#'+'nom#') ? "#nom#":"#name#"; // remplace le nom de la commande par celui de votre choix
+    var size#id# = ('#size#' !='#'+'size#') ? "#size#":"250px"; // taille du cadran
+    var fond#id# = ('#fond#' !='#'+'fond#') ? "#fond#":"#000"; // couleur fond du cadran
+    var aiguille#id# = ('#aiguille#' !='#'+'aiguille#') ? "#aiguille#":"#F00"; // couleur aiguille défaut rouge
+    var Laiguille#id# = ('#Laiguille#' !='#'+'Laiguille#') ? "#Laiguille#":"70"; // Longueur de aiguille
+    var Eaiguille#id# = ('#Eaiguille#' !='#'+'Eaiguille#') ? "#Eaiguille#":"4"; // Epaisseur de aiguille
+    var Raiguille#id# = ('#Raiguille#' !='#'+'Raiguille#') ? "#Raiguille#":"0"; // Longueur arriere de aiguille
 
-    var CTXT1#id# = ('#CTXT1#' !='#'+'CTXT1#') ? "#CTXT1#" :"green";                // couleur texte 1
-    var CTXT2#id# = ('#CTXT2#' !='#'+'CTXT2#') ? "#CTXT2#" :"red";                  // couleur texte 2
-    var CTXT3#id# = ('#CTXT3#' !='#'+'CTXT3#') ? "#CTXT3#" :"white";                // couleur texte graduation cadran
+    var CTXT1#id# = ('#CTXT1#' !='#'+'CTXT1#') ? "#CTXT1#" :"green"; // couleur texte 1
+    var CTXT2#id# = ('#CTXT2#' !='#'+'CTXT2#') ? "#CTXT2#" :"red"; // couleur texte 2
+    var CTXT3#id# = ('#CTXT3#' !='#'+'CTXT3#') ? "#CTXT3#" :"white"; // couleur texte 3
+    var RTXT#id# = ('#RTXT#' !='#'+'RTXT#') ? "#RTXT#" :'auto'; // rotation texte valeurs
 
-    var fsize#id# = ('#fsize#' !='#'+'fsize#') ? "#fsize#" :"12px";                 // taille des caracteres
+    var fsize#id# = ('#fsize#' !='#'+'fsize#') ? "#fsize#" :"12px"; // taille des caracteres
 
-    var centre#id# = ('#centre#' !='#'+'centre#') ? "#centre#" :"#FFF";             // couleur du pivot de l'aiguille défaut white
-    var Tcentre#id# = ('#Tcentre#' !='#'+'Tcentre#') ? "#Tcentre#" :"5";            // taille du pivot de l'aiguille
+    var centre#id# = ('#centre#' !='#'+'centre#') ? "#centre#" :"#FFF"; // blanc
+    var Tcentre#id# = ('#Tcentre#' !='#'+'Tcentre#') ? "#Tcentre#" :"5"; // taille du centre
 
-    var step#id# = ('#step#' !='#'+'step#') ? "#step#" :"2";                        // espacement des valeurs 
+    var step#id# = ('#step#' !='#'+'step#') ? "#step#" :"2"; // espacement des valeurs 
 
-    var start#id# = ('#start#' !='#'+'start#') ? "#start#" :"-150";                 // début compteur
-    var stop#id# = ('#stop#' !='#'+'stop#') ? "#stop#" :"150";                      //fin compteur
+    var start#id# = ('#start#' !='#'+'start#') ? "#start#" :"-150"; // début compteur
+    var stop#id# = ('#stop#' !='#'+'stop#') ? "#stop#" :"150"; //fin compteur
 
-    var C1#id# = ('#C1#' !='#'+'C1#') ? "#C1#":"#080";                              // VERT COULEUR 1ER PARTIE
-    var C2#id# = ('#C2#' !='#'+'C2#') ? "#C2#":"#880";                              // JAUNE COULEUR 2IEME PARTIE
-    var C3#id# = ('#C3#' !='#'+'C3#') ? "#C3#":"#800";                              // ROUGE COULEUR 3IEME PARTIE
-    var C4#id# = ('#C4#' !='#'+'C4#') ? "#C4#":"#800";                              // ROUGE COULEUR 4IEME PARTIE
-    var C5#id# = ('#C5#' !='#'+'C5#') ? "#C5#":"#800";                              // ROUGE COULEUR 5IEME PARTIE
+    var C1#id# = ('#C1#' !='#'+'C1#') ? "#C1#":"#080"; //VERT COULEUR 1ER PARTIE
+    var C2#id# = ('#C2#' !='#'+'C2#') ? "#C2#":"#880"; //JAUNE COULEUR 2IEME PARTIE
+    var C3#id# = ('#C3#' !='#'+'C3#') ? "#C3#":"#800"; //ROUGE COULEUR 3IEME PARTIE
+    var C4#id# = ('#C4#' !='#'+'C4#') ? "#C4#":"#800"; //ROUGE COULEUR 4IEME PARTIE
+    var C5#id# = ('#C5#' !='#'+'C5#') ? "#C5#":"#800"; //ROUGE COULEUR 5IEME PARTIE
 
-    var V0#id# = ('#V0#' !='#'+'V0#') ? "#V0#":"#minValue#";                        // valeur de separation entre la partie 0 et 1
-    var V1#id# = ('#V1#' !='#'+'V1#') ? "#V1#":"#minValue#";                        // valeur de separation entre la partie 1 et 2
-    var V2#id# = ('#V2#' !='#'+'V2#') ? "#V2#":"#minValue#";                        // valeur de separation entre la partie 2 et 3
-    var V3#id# = ('#V3#' !='#'+'V3#') ? "#V3#":"#maxValue#";                        // valeur de separation entre la partie 3 et 4
-    var V4#id# = ('#V4#' !='#'+'V4#') ? "#V4#":"#maxValue#";                        // valeur de separation entre la partie 4 et 5
-    var VX#id# = ('#VX#' !='#'+'VX#') ? "#VX#":"#maxValue#";                        // valeur de separation entre la partie 5 et 6
+    var Cmin#id# = ('#Cmin#' !='#'+'Cmin#') ? "#Cmin#":"#00F"; //BLEU STAT MIN
+    var Cmoy#id# = ('#Cmoy#' !='#'+'Cmoy#') ? "#Cmoy#":"#0F0"; //VERT STAT MOYENNE
+    var Cmax#id# = ('#Cmax#' !='#'+'Cmax#') ? "#Cmax#":"#F00"; //ROUGE STAT MINI
+
+    var V0#id# = ('#V0#' !='#'+'V0#') ? "#V0#":"#minValue#"; // valeur de separation entre la partie 0 et 1
+    var V1#id# = ('#V1#' !='#'+'V1#') ? "#V1#":"#minValue#"; // valeur de separation entre la partie 1 et 2
+    var V2#id# = ('#V2#' !='#'+'V2#') ? "#V2#":"#minValue#"; // valeur de separation entre la partie 2 et 3
+
+    var V3#id# = ('#V3#' !='#'+'V3#') ? "#V3#":"#maxValue#"; // valeur de separation entre la partie 3 et 4
+    var V4#id# = ('#V4#' !='#'+'V4#') ? "#V4#":"#maxValue#"; // valeur de separation entre la partie 4 et 5
+    var VX#id# = ('#VX#' !='#'+'VX#') ? "#VX#":"#maxValue#"; // valeur de separation entre la partie 5 et 6
+
+    var dur#id# = ('#dur#' !='#'+'dur#') ? "#dur#":"oui";
+
+    var VminHist#id# = ('#minHistoryValue#' !='#'+'minHistoryValue#') ? "#minHistoryValue#":"0";
+    var VmoyHist#id# = ('#averageHistoryValue#' !='#'+'averageHistoryValue#') ? "#averageHistoryValue#":"0";
+    var VmaxHist#id# = ('#maxHistoryValue#' !='#'+'maxHistoryValue#') ? "#maxHistoryValue#":"0";
+
 
     V0#id#=parseFloat(V0#id#);
     V1#id#=parseFloat(V1#id#);
@@ -94,45 +108,41 @@ Les expression de couleurs respectent le format HTML (red, lime, …, #F00, …,
     V3#id#=parseFloat(V3#id#);
     V4#id#=parseFloat(V4#id#);
     VX#id#=parseFloat(VX#id#);
+    if(RTXT#id# != 'auto') { RTXT#id#=parseFloat(RTXT#id#); }
     CTXT3#id# = CTXT3#id# + " !important";
 
     $('#JaugeHorizontal#id#').css('width',size#id#);
     $('#JaugeHorizontal#id#').css('height',size#id#);
+    $('#JaugeHorizontal#id#').css('position','relative');
+    $('#JaugeHorizontal#id#').css('top','-15px');
 
     var chart#id#;
-
     chart#id# = new Highcharts.Chart({
-
       chart: {
         renderTo: 'JaugeHorizontal#id#',
         type: 'gauge',
+        plotBackgroundColor: null,
+        plotBackgroundImage: null,
+        plotBorderWidth:0,
+        plotBorderColor: null,
         plotShadow: false
       },
-      title: {
-        text: '',
-        verticalAlign: 'bottom'
-      },				
-      credits: {
-        enabled: false
+      title: { text: '', verticalAlign: 'bottom'
       },
+      credits: { enabled: false },
       pane: {
         startAngle: start#id#,
         endAngle: stop#id#,
         background: [{
-          backgroundColor: fond#id#,
-          borderWidth: 0,
-          outerRadius: '100%',
-          innerRadius: '0%'
+            backgroundColor: fond#id#,
+            borderWidth: 0,
+            outerRadius: '100%',
+            innerRadius: '0%'
         }] 
       },
-      exporting : {
-        enabled: false
-      },
+      exporting : { enabled: false },
       plotOptions: {
-        series: {
-          dataLabels: {
-            enabled: false
-          }
+        series: { dataLabels: { enabled: false }
         },
         gauge: {
           dial: {
@@ -152,72 +162,88 @@ Les expression de couleurs respectent le format HTML (red, lime, …, #F00, …,
           }
         }
       },
-
-      // valeurs de l'axe
       yAxis: {
-
         min: V0#id#,
         max: VX#id#,
-      
         minorTickInterval: 'auto',
         minorTickWidth: 1,
         minorTickLength: 10,
         minorTickPosition: 'inside',
-        minorTickColor: 'red',
-
+        minorTickColor: 'red !important', // Ne fonctionne pas couleur du core
         tickPixelInterval: 50, 
         tickWidth: 2,
         tickPosition: 'inside',
         tickLength: 10,
-        tickColor: '#F00',
-        
+        tickColor: '#F00', // Ne fonctionne pas couleur du core
         labels: {
           step: step#id#,
-          rotation: 'auto',
-
+          rotation: RTXT#id#,
+          padding: 1 ,
           style: {
             color: CTXT3#id# ,
             fontSize: fsize#id#
           }
         },
-
         title: {
-          text: '#state#' ,
+          text: '#state#',
           style: {
             color: 'green',
             fontWeight: 'bold',
-            fontSize: fsize#id# 
+            fontSize: fsize#id#
           },
         },
-        
-        plotBands: [{
-          from: V0#id#,
-          to: V1#id#,
-          color: C1#id# // green couleur 1
-        }, {
-          from: V1#id#,
-          to: V2#id#,
-          color: C2#id# // yellow couleur 2
-        },{
-          from: V2#id#,
-          to: V3#id#,
-          color: C3#id# // yellow couleur 2
-        },{
-          from: V3#id#,
-          to: V4#id#,
-          color: C4#id# // yellow couleur 2
-        },{
-          from: V4#id#,
-          to: VX#id#,
-          color: C5#id# // red couleur 3
-        }]
+        plotBands: [
+          { from: V0#id#, to: V1#id#, color: C1#id# }, // green couleur 1
+          { from: V1#id#, to: V2#id#, color: C2#id# }, // yellow couleur 2
+          { from: V2#id#, to: V3#id#, color: C3#id# }, // yellow couleur 3
+          { from: V3#id#, to: V4#id#, color: C4#id# }, // yellow couleur 4
+          { from: V4#id#, to: VX#id#, color: C5#id# }  // red couleur 5
+        ]
       },
-
       series: [{
         name: 'Valeur',
-        data: [#state#],
-        tooltip: {
-            valueSuffix: ' #unite#'
+        data: [
+          { id: 'valeur',
+            y: 0
+          },
+          { id: 'min',
+            y: VminHist#id#,
+            dial: {
+              radius: '99%',
+              baseWidth: 1,
+              topWidth: 8,
+              baseLength: '90%',
+              rearLength: '-90%',
+              backgroundColor: Cmin#id#,
+              borderColor: Cmin#id#
+            }
+          },   
+          { id: 'moy',
+            y: VmoyHist#id#,
+            dial: {
+              radius: '99%',
+              baseWidth: 1,
+              topWidth: 8,
+              baseLength: '90%',
+              rearLength: '-90%',
+              backgroundColor: Cmoy#id#,
+              borderColor: Cmoy#id#
+            }
+          },
+          { id: 'max',
+            y: VmaxHist#id#,
+            dial: {
+              radius: '99%',
+              baseWidth: 1,
+              topWidth: 8,
+              baseLength: '90%',
+              rearLength: '-90%',
+              backgroundColor: Cmax#id#,
+              borderColor: Cmax#id#
+            }
+          }
+        ],
+        tooltip: { valueSuffix: ' #unite#'
         }
       }]
     })
@@ -225,27 +251,26 @@ Les expression de couleurs respectent le format HTML (red, lime, …, #F00, …,
     jeedom.cmd.update['#id#'] = function(_options){
       var valeur = parseFloat(_options.display_value);
       var valeur2 = _options.collectDate;
+      $('.cmd[data-cmd_id=#id#]').attr('title','Date de valeur : '+_options.valueDate+'<br/>Date de collecte : '+_options.collectDate);
+      chart#id#.yAxis[0].setTitle(
+        { text: nom#id# , style: { color: CTXT1#id#, fontWeight: 'bold', fontSize: fsize#id# } }
+      );
 
-      chart#id#.yAxis[0].setTitle({ text: nom#id# , style: {
-        color: CTXT1#id#,
-        fontWeight: 'bold',
-        fontSize: fsize#id#
-      }});
-    
-      chart#id#.setTitle({ text: valeur + ' #unite#', style: {
-        color: CTXT2#id#,
-        fontSize: fsize#id#
-      },y:-60});
+      chart#id#.setTitle(
+        { text: valeur + ' #unite#', style: { color: CTXT2#id#, fontSize: fsize#id# }, y:-60}
+      );
 
-      // limitation aiguille contribution JPTY
+        // limitation aiguille contribution JPTY
       var plage = (VX#id# - V0#id#) *.02;
       if ( valeur < V0#id# ) valeur = V0#id# - plage;
       else if ( valeur > VX#id# ) valeur = VX#id# + plage;
-  
+         
       chart#id#.series[0].data[0].update(valeur);
+
+      if( dur#id# == "oui"){
+        jeedom.cmd.displayDuration(_options.valueDate, $('.cmd[data-cmd_id=#id#] .timeCmd#uid#')); 
+      } 
     }
-
     jeedom.cmd.update['#id#']({display_value:'#state#',valueDate:'#valueDate#',collectDate:'#collectDate#'});
-
-  </script>
+   </script>
 </div>
