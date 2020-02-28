@@ -6,8 +6,7 @@
 ----- Paramètres optionnels widget
 size      // Taille du cadran (déaut 250px)
 nom       // Remplace le nom de la commande par celui de votre choix
-back      // Couleur de fond du widget (défaut #262626 )
-fond      // Couleur de fond du cadran (défaut #@@@ )
+fond      // Couleur de fond du cadran (défaut #000 )
 aiguille  // Couleur aiguille (défaut rouge)
 Laiguille // Longueur de aiguille (défaut 70)
 Eaiguille // Epaisseur de aiguille (défaut 4)
@@ -114,7 +113,7 @@ Les expression de couleurs respectent le format HTML (red, lime, …, #F00, …,
     $('#JaugeHorizontal#id#').css('width',size#id#);
     $('#JaugeHorizontal#id#').css('height',size#id#);
     $('#JaugeHorizontal#id#').css('position','relative');
-    $('#JaugeHorizontal#id#').css('top','-15px');
+    $('#JaugeHorizontal#id#').css('top','30px');
 
     var chart#id#;
     chart#id# = new Highcharts.Chart({
@@ -152,7 +151,7 @@ Les expression de couleurs respectent le format HTML (red, lime, …, #F00, …,
             baseWidth:Eaiguille#id#,
             topWidth:1,
             borderWidth: 1,
-            borderColor: aiguille#id#
+            borderColor:aiguille#id#
           },
           pivot: {
             radius: Tcentre#id#,
@@ -178,7 +177,7 @@ Les expression de couleurs respectent le format HTML (red, lime, …, #F00, …,
         labels: {
           step: step#id#,
           rotation: RTXT#id#,
-          padding: 1 ,
+          padding: 1,
           style: {
             color: CTXT3#id# ,
             fontSize: fsize#id#
